@@ -399,3 +399,17 @@ FodyWeavers.xsd
 
 # JetBrains Rider
 *.sln.iml
+
+# benim eklediklerim
+# gizli dosyalar
+.env
+*.env
+appsettings.*.local.json
+secrets.json
+
+# yüklenen fotoğraflar
+wwwroot/uploads/
+
+# editör klasörleri
+.idea/
+.vscode/
