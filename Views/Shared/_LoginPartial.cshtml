@@ -1,0 +1,28 @@
+@using Microsoft.AspNetCore.Identity
+@using VetClinic.Models.Entities
+@inject UserManager<ApplicationUser> UserManager
+
+@* navbar'ın sağ tarafı: giriş yaptıysa ad + çıkış, yapmadıysa giriş/kayıt *@
+<ul class="navbar-nav">
+    @if (User.Identity?.IsAuthenticated == true)
+    {
+        var user = await UserManager.GetUserAsync(User);
+        <li class="nav-item">
+            <span class="nav-link text-dark">Merhaba, @user?.FirstName</span>
+        </li>
+        <li class="nav-item">
+            <form asp-controller="Account" asp-action="Logout" method="post" class="d-inline">
+                <button type="submit" class="nav-link btn btn-link text-dark">Çıkış Yap</button>
+            </form>
+        </li>
+    }
+    else
+    {
+        <li class="nav-item">
+            <a class="nav-link text-dark" asp-controller="Account" asp-action="Login">Giriş Yap</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link text-dark" asp-controller="Account" asp-action="Register">Kayıt Ol</a>
+        </li>
+    }
+</ul>

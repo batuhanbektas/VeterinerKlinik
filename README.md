@@ -3,8 +3,8 @@
 | | |
 |---|---|
 | **Öğrenci** | Batuhan Bektaş |
-| **Öğrenci No** | _B2XXXXXXXX_ |
-| **Ders / Grup** | Web Programlama – _X. Öğretim, Grup X_ |
+| **Öğrenci No** | G231210379 |
+| **Ders / Grup** | Web Programlama – 2A |
 | **GitHub** | https://github.com/batuhanbektas/VeterinerKlinik |
 
 ## Proje Hakkında
@@ -34,6 +34,7 @@ Gereksinimler: .NET 10 SDK, SQL Server LocalDB (Visual Studio ile birlikte gelir
 dotnet user-secrets set "ConnectionStrings:DefaultConnection" "Server=(localdb)\mssqllocaldb;Database=VetClinicDb;Trusted_Connection=True;MultipleActiveResultSets=true"
 
 # 2) Veritabanını migration'lardan oluştur
+#    (uygulama açılırken bekleyen migration'lar otomatik uygulanıyor, bu adım opsiyonel)
 dotnet tool install --global dotnet-ef --version "10.*"   # sadece ilk sefer
 dotnet ef database update
 
@@ -41,12 +42,27 @@ dotnet ef database update
 dotnet run
 ```
 
+İlk çalıştırmada roller (Admin, Veteriner, Uye), admin hesabı ve örnek veriler (klinik, hizmetler, uzmanlıklar, 2 veteriner, 2 üye, evcil hayvanlar, aşılar, randevular) otomatik eklenir (`Data/DbSeeder.cs`).
+
+## Hazır Kullanıcılar
+
+| Rol | E-posta | Şifre |
+|---|---|---|
+| Admin | `G231210379@sakarya.edu.tr` | `sau` |
+| Veteriner | `ayse.yilmaz@example.com` | `sau123` |
+| Veteriner | `mehmet.kaya@example.com` | `sau123` |
+| Üye | `ali.demir@example.com` (Pamuk, Karabaş) | `sau123` |
+| Üye | `zeynep.kara@example.com` (Boncuk) | `sau123` |
+
+Kayıt sayfasından kayıt olan herkes otomatik olarak **Üye** rolü alır.
+
 ## Proje Yapısı
 
 ```
 VeterinerKlinik/
 ├── Models/Entities/   Veritabanı varlıkları (Pet, Appointment, Veterinarian...)
-├── Data/              ApplicationDbContext (ilişkiler, index'ler, silme kuralları)
+├── Models/ViewModels/ Form modelleri (giriş, kayıt...)
+├── Data/              ApplicationDbContext, DbSeeder (seed), Türkçe Identity hata mesajları
 ├── Migrations/        EF Core migration dosyaları
 ├── Controllers/       MVC controller'ları
 └── Views/             Razor görünümleri
