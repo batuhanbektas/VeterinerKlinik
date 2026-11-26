@@ -1,2 +1,14 @@
 ﻿<script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
 <script src="~/lib/jquery-validation-unobtrusive/dist/jquery.validate.unobtrusive.min.js"></script>
+
+<script>
+    // sunucu tr-TR kültüründe çalıştığı için ondalık ayırıcı virgül (150,50)
+    // jquery validation varsayılanda nokta bekliyor, onu değiştirdim
+    $.validator.methods.number = function (value, element) {
+        return this.optional(element) || /^-?\d+(,\d+)?$/.test(value);
+    };
+    $.validator.methods.range = function (value, element, param) {
+        var num = parseFloat(value.replace(",", "."));
+        return this.optional(element) || (num >= param[0] && num <= param[1]);
+    };
+</script>

@@ -1,0 +1,43 @@
+@model IEnumerable<Service>
+@{
+    ViewData["Title"] = "Hizmetler";
+    Layout = "_AdminLayout";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h1 class="h3 mb-0">Hizmetler</h1>
+    <a asp-action="Create" class="btn btn-primary">+ Yeni Hizmet</a>
+</div>
+
+@if (!Model.Any())
+{
+    <p class="text-muted">Henüz hizmet eklenmemiş.</p>
+}
+else
+{
+    <table class="table table-hover align-middle bg-white">
+        <thead class="table-light">
+            <tr>
+                <th>@Html.DisplayNameFor(m => m.Name)</th>
+                <th>@Html.DisplayNameFor(m => m.DurationMinutes)</th>
+                <th>@Html.DisplayNameFor(m => m.Price)</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.Name</td>
+                    <td>@item.DurationMinutes dk</td>
+                    <td>@item.Price.ToString("C")</td>
+                    <td class="text-end">
+                        <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-sm btn-outline-secondary">Detay</a>
+                        <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-outline-primary">Düzenle</a>
+                        <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-sm btn-outline-danger">Sil</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}

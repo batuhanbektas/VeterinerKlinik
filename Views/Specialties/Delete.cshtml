@@ -1,0 +1,26 @@
+@model Specialty
+@{
+    ViewData["Title"] = "Uzmanlığı Sil";
+    Layout = "_AdminLayout";
+}
+
+<h1 class="h3 mb-3">Uzmanlığı Sil</h1>
+
+<div class="card col-lg-6">
+    <div class="card-body">
+        <p><strong>@Model.Name</strong> uzmanlığını silmek istediğine emin misin?</p>
+
+        @if (Model.Veterinarians.Count > 0)
+        {
+            <div class="alert alert-warning">
+                @Model.Veterinarians.Count hekimde bu uzmanlık tanımlı. Silinirse hekimlerden de kaldırılır (hekimler silinmez).
+            </div>
+        }
+
+        <form asp-action="Delete" method="post">
+            <input type="hidden" asp-for="Id" />
+            <button type="submit" class="btn btn-danger">Evet, sil</button>
+            <a asp-action="Index" class="btn btn-secondary">Vazgeç</a>
+        </form>
+    </div>
+</div>

@@ -16,9 +16,11 @@ public class Clinic : IValidatableObject
     [Display(Name = "Adres")]
     public string Address { get; set; } = "";
 
+    [Required(ErrorMessage = "Açılış saati zorunludur.")]
     [Display(Name = "Açılış Saati")]
     public TimeOnly OpeningTime { get; set; }
 
+    [Required(ErrorMessage = "Kapanış saati zorunludur.")]
     [Display(Name = "Kapanış Saati")]
     public TimeOnly ClosingTime { get; set; }
 

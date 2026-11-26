@@ -1,4 +1,6 @@
+using System.Globalization;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Localization;
 using Microsoft.EntityFrameworkCore;
 using VetClinic.Data;
 using VetClinic.Models.Entities;
@@ -38,7 +40,13 @@ builder.Services.ConfigureApplicationCookie(options =>
     options.AccessDeniedPath = "/Account/AccessDenied";
 });
 
-builder.Services.AddControllersWithViews();
+builder.Services.AddControllersWithViews(options =>
+{
+    // model binding hata mesajları varsayılanda ingilizce, türkçeye çevirdim
+    options.ModelBindingMessageProvider.SetValueMustBeANumberAccessor(field => $"{field} alanına sayı girilmeli.");
+    options.ModelBindingMessageProvider.SetAttemptedValueIsInvalidAccessor((value, field) => $"'{value}' değeri {field} için geçerli değil.");
+    options.ModelBindingMessageProvider.SetValueMustNotBeNullAccessor(value => "Bu alan boş bırakılamaz.");
+});
 
 var app = builder.Build();
 
@@ -55,6 +63,16 @@ if (!app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+// uygulama türkçe kültürde çalışsın: ücret "₺450,00" gibi görünsün, formda ondalık virgülle girilsin
+var trCulture = new CultureInfo("tr-TR");
+app.UseRequestLocalization(new RequestLocalizationOptions
+{
+    DefaultRequestCulture = new RequestCulture(trCulture),
+    SupportedCultures = new[] { trCulture },
+    SupportedUICultures = new[] { trCulture }
+});
+
 app.UseRouting();
 
 // sıra önemli: önce kimlik (kim bu?), sonra yetki (buna izni var mı?)

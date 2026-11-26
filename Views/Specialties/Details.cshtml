@@ -1,0 +1,29 @@
+@model Specialty
+@{
+    ViewData["Title"] = "Uzmanlık Detayı";
+    Layout = "_AdminLayout";
+}
+
+<h1 class="h3 mb-3">@Model.Name</h1>
+
+<div class="card col-lg-6 mb-3">
+    <div class="card-body">
+        <h2 class="h6">Bu uzmanlığa sahip hekimler</h2>
+        @if (Model.Veterinarians.Count == 0)
+        {
+            <p class="text-muted mb-0">Henüz yok.</p>
+        }
+        else
+        {
+            <ul class="mb-0">
+                @foreach (var vet in Model.Veterinarians)
+                {
+                    <li>Dr. @vet.User?.FirstName @vet.User?.LastName</li>
+                }
+            </ul>
+        }
+    </div>
+</div>
+
+<a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-primary">Düzenle</a>
+<a asp-action="Index" class="btn btn-secondary">Listeye dön</a>

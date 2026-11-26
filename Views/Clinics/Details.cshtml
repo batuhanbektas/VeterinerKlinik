@@ -1,0 +1,25 @@
+@model Clinic
+@{
+    ViewData["Title"] = "Klinik Detayı";
+    Layout = "_AdminLayout";
+}
+
+<h1 class="h3 mb-3">@Model.Name</h1>
+
+<div class="card col-lg-6 mb-3">
+    <div class="card-body">
+        <dl class="row mb-0">
+            <dt class="col-sm-4">@Html.DisplayNameFor(m => m.Address)</dt>
+            <dd class="col-sm-8">@Model.Address</dd>
+
+            <dt class="col-sm-4">@Html.DisplayNameFor(m => m.OpeningTime)</dt>
+            <dd class="col-sm-8">@Model.OpeningTime.ToString("HH:mm")</dd>
+
+            <dt class="col-sm-4">@Html.DisplayNameFor(m => m.ClosingTime)</dt>
+            <dd class="col-sm-8">@Model.ClosingTime.ToString("HH:mm")</dd>
+        </dl>
+    </div>
+</div>
+
+<a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-primary">Düzenle</a>
+<a asp-action="Index" class="btn btn-secondary">Listeye dön</a>

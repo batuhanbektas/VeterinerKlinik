@@ -1,0 +1,73 @@
+@model AdminDashboardViewModel
+@{
+    ViewData["Title"] = "Yönetim Paneli";
+    Layout = "_AdminLayout";
+}
+
+<h1 class="h3 mb-4">Yönetim Paneli</h1>
+
+<div class="row g-3 mb-4">
+    <div class="col-sm-6 col-lg-3">
+        <div class="card text-bg-warning h-100">
+            <div class="card-body">
+                <div class="small">Bekleyen Randevu</div>
+                <div class="fs-2 fw-bold">@Model.PendingAppointmentCount</div>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-6 col-lg-3">
+        <div class="card text-bg-primary h-100">
+            <div class="card-body">
+                <div class="small">Bugünkü Randevu</div>
+                <div class="fs-2 fw-bold">@Model.TodayAppointmentCount</div>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-6 col-lg-3">
+        <div class="card h-100">
+            <div class="card-body">
+                <div class="small text-muted">Veteriner</div>
+                <div class="fs-2 fw-bold">@Model.VeterinarianCount</div>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-6 col-lg-3">
+        <div class="card h-100">
+            <div class="card-body">
+                <div class="small text-muted">Üye</div>
+                <div class="fs-2 fw-bold">@Model.MemberCount</div>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-6 col-lg-3">
+        <div class="card h-100">
+            <div class="card-body">
+                <div class="small text-muted">Evcil Hayvan</div>
+                <div class="fs-2 fw-bold">@Model.PetCount</div>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-6 col-lg-3">
+        <div class="card h-100">
+            <div class="card-body">
+                <div class="small text-muted">Hizmet</div>
+                <div class="fs-2 fw-bold">@Model.ServiceCount</div>
+                <a asp-controller="Services" asp-action="Index" class="stretched-link"></a>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-6 col-lg-3">
+        <div class="card h-100">
+            <div class="card-body">
+                <div class="small text-muted">Uzmanlık</div>
+                <div class="fs-2 fw-bold">@Model.SpecialtyCount</div>
+                <a asp-controller="Specialties" asp-action="Index" class="stretched-link"></a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<h2 class="h5">Hızlı İşlemler</h2>
+<a asp-controller="Services" asp-action="Create" class="btn btn-outline-primary me-2">+ Yeni Hizmet</a>
+<a asp-controller="Specialties" asp-action="Create" class="btn btn-outline-primary me-2">+ Yeni Uzmanlık</a>
+<a asp-controller="Clinics" asp-action="Index" class="btn btn-outline-secondary">Klinik Bilgileri</a>

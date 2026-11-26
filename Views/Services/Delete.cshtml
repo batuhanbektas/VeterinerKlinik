@@ -1,0 +1,31 @@
+@model Service
+@{
+    ViewData["Title"] = "Hizmeti Sil";
+    Layout = "_AdminLayout";
+    int appointmentCount = ViewBag.AppointmentCount;
+}
+
+<h1 class="h3 mb-3">Hizmeti Sil</h1>
+
+<div class="card col-lg-6">
+    <div class="card-body">
+        <p><strong>@Model.Name</strong> (@Model.DurationMinutes dk, @Model.Price.ToString("C"))</p>
+
+        @if (appointmentCount > 0)
+        {
+            <div class="alert alert-warning">
+                Bu hizmete ait @appointmentCount randevu var, bu yüzden silinemez.
+            </div>
+            <a asp-action="Index" class="btn btn-secondary">Geri dön</a>
+        }
+        else
+        {
+            <p>Bu hizmeti silmek istediğine emin misin?</p>
+            <form asp-action="Delete" method="post">
+                <input type="hidden" asp-for="Id" />
+                <button type="submit" class="btn btn-danger">Evet, sil</button>
+                <a asp-action="Index" class="btn btn-secondary">Vazgeç</a>
+            </form>
+        }
+    </div>
+</div>

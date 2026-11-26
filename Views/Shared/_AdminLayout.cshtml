@@ -1,0 +1,50 @@
+@{
+    // admin sayfaları bu layout'u kullanıyor: solda menü, sağda sayfa içeriği
+    Layout = "_Layout";
+    var controller = ViewContext.RouteData.Values["controller"]?.ToString();
+}
+
+<div class="row">
+    <div class="col-md-3 col-lg-2 mb-3">
+        <div class="list-group">
+            <a asp-controller="Admin" asp-action="Index"
+               class="list-group-item list-group-item-action @(controller == "Admin" ? "active" : "")">Panel</a>
+            <a asp-controller="Clinics" asp-action="Index"
+               class="list-group-item list-group-item-action @(controller == "Clinics" ? "active" : "")">Klinik</a>
+            <a asp-controller="Services" asp-action="Index"
+               class="list-group-item list-group-item-action @(controller == "Services" ? "active" : "")">Hizmetler</a>
+            <a asp-controller="Specialties" asp-action="Index"
+               class="list-group-item list-group-item-action @(controller == "Specialties" ? "active" : "")">Uzmanlıklar</a>
+
+            @* sonraki aşamalarda eklenecek sayfalar *@
+            <span class="list-group-item text-muted">Veterinerler <small>(yakında)</small></span>
+            <span class="list-group-item text-muted">Randevular <small>(yakında)</small></span>
+            <span class="list-group-item text-muted">Raporlar <small>(yakında)</small></span>
+        </div>
+    </div>
+
+    <div class="col-md-9 col-lg-10">
+        @* controller'dan TempData ile gelen mesajlar *@
+        @if (TempData["Success"] != null)
+        {
+            <div class="alert alert-success alert-dismissible fade show">
+                @TempData["Success"]
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            </div>
+        }
+        @if (TempData["Error"] != null)
+        {
+            <div class="alert alert-danger alert-dismissible fade show">
+                @TempData["Error"]
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            </div>
+        }
+
+        @RenderBody()
+    </div>
+</div>
+
+@* alt sayfalardaki Scripts bölümünü ana layout'a aktarıyorum *@
+@section Scripts {
+    @await RenderSectionAsync("Scripts", required: false)
+}

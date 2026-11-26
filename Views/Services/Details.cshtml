@@ -1,0 +1,40 @@
+@model Service
+@{
+    ViewData["Title"] = "Hizmet Detayı";
+    Layout = "_AdminLayout";
+}
+
+<h1 class="h3 mb-3">@Model.Name</h1>
+
+<div class="card col-lg-6 mb-3">
+    <div class="card-body">
+        <dl class="row mb-0">
+            <dt class="col-sm-5">@Html.DisplayNameFor(m => m.DurationMinutes)</dt>
+            <dd class="col-sm-7">@Model.DurationMinutes dk</dd>
+
+            <dt class="col-sm-5">@Html.DisplayNameFor(m => m.Price)</dt>
+            <dd class="col-sm-7">@Model.Price.ToString("C")</dd>
+
+            <dt class="col-sm-5">Toplam randevu</dt>
+            <dd class="col-sm-7">@ViewBag.AppointmentCount</dd>
+
+            <dt class="col-sm-5">Bu hizmeti veren hekimler</dt>
+            <dd class="col-sm-7">
+                @if (Model.Veterinarians.Count == 0)
+                {
+                    <span class="text-muted">Henüz yok</span>
+                }
+                else
+                {
+                    foreach (var vet in Model.Veterinarians)
+                    {
+                        <div>Dr. @vet.User?.FirstName @vet.User?.LastName</div>
+                    }
+                }
+            </dd>
+        </dl>
+    </div>
+</div>
+
+<a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-primary">Düzenle</a>
+<a asp-action="Index" class="btn btn-secondary">Listeye dön</a>

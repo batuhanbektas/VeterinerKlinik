@@ -1,0 +1,23 @@
+@model Clinic
+@{
+    ViewData["Title"] = "Kliniği Sil";
+    Layout = "_AdminLayout";
+}
+
+<h1 class="h3 mb-3">Kliniği Sil</h1>
+
+<div class="card col-lg-6">
+    <div class="card-body">
+        <p><strong>@Model.Name</strong> - @Model.Address</p>
+        <div class="alert alert-warning">
+            Randevu alınırken klinik çalışma saatleri kontrol ediliyor. Klinik silinirse bu kontrol yapılamaz.
+        </div>
+        <p>Silmek istediğine emin misin?</p>
+
+        <form asp-action="Delete" method="post">
+            <input type="hidden" asp-for="Id" />
+            <button type="submit" class="btn btn-danger">Evet, sil</button>
+            <a asp-action="Index" class="btn btn-secondary">Vazgeç</a>
+        </form>
+    </div>
+</div>
